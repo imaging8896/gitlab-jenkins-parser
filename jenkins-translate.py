@@ -12,8 +12,6 @@ Simple script for Gitlab-CI runner, translating Jenkins console output
 
 __author__ = 'Vladimir Eremeev'
 
-JENKINS_JOB_URL = "http://192.168.27.15:8080/job/cms-v2-frontend-merge-trigger"
-
 
 def get_build_console_for_sha1(url, sha1):
     return '{}/scm/bySHA1/{}/consoleText'.format(url, sha1)
