@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import socket
+import argparse
 
 
 """
@@ -12,6 +13,7 @@ Simple script for Gitlab-CI runner, translating Jenkins console output
 __author__ = 'Vladimir Eremeev'
 
 JENKINS_JOB_URL = "http://192.168.27.15:8080/job/cms-v2-frontend-merge-trigger"
+
 
 def get_build_console_for_sha1(url, sha1):
     return '{}/scm/bySHA1/{}/consoleText'.format(url, sha1)
@@ -73,7 +75,13 @@ def parse_console(build_con):
 
 
 def main():
-    url = JENKINS_JOB_URL
+    parser = argparse.ArgumentParser(description='jenkins translation')
+    parser.add_argument('-u', type=str, required=True,
+                        help='Jenkins job URL')
+
+    args = parser.parse_args()
+
+    url = args.u
     sha1 = os.getenv('CI_BUILD_REF')
 
     print "Looking for job, building {}".format(sha1)
